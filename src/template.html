@@ -1,0 +1,1165 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Студия мебели Сергея Миронова — коммерческое предложение</title>
+<style>
+/* ===== design tokens: единственное место с цветом/шрифтом — компоненты ниже только ссылаются на переменные ===== */
+:root{
+  --bg:#0A0A0B; --bg2:#101012; --card:#16161A; --card2:#1C1C21; --line:#26262B; --line2:#33333A;
+  --ink:#F2F3F4; --dim:#C3C6CC; --mut:#9DA0A6;
+  --acc:#C9DB2E; --acc2:#A8BB18; --accInk:#171A05;
+  --ok:#5FD97C; --warn:#E8B339;
+  --r-lg:16px; --r-md:12px; --r-sm:9px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:15px;overflow-x:hidden}
+button,input{font-family:inherit}
+img{max-width:100%;display:block}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+@media(max-width:520px){.wrap{padding:0 16px}}
+
+/* заголовки: сжатый жирный градиент с бликом «под углом» — цитата металлической гравировки
+   из каталога-брендбука («КАТАЛОГ РАБОТ»), а не просто плоское затемнение сверху вниз.
+   Без background-clip:text (старый WebView, некоторые мессенджеры) — сплошной светлый цвет. */
+/* line-height не туже 1.08 — иначе диакритика над «Й» (бревис, после text-transform:uppercase
+   встаёт ВЫШЕ буквы) залезает на строку выше и выглядит как оторванный завиток (пойман на
+   скрине d1-hero-1440: плавающая дужка между «НА» и «ЗАКАЗ» — на самом деле верх «Й» из
+   строки «ВАШЕЙ» ниже) */
+.h1,.h2,.h3{font-weight:800;letter-spacing:-.025em;line-height:1.2;color:#EDEEF0}
+@supports (background-clip:text) or (-webkit-background-clip:text){
+  .h1,.h2,.h3{
+    background:linear-gradient(115deg,#FFFFFF 0%,#DEE0E4 18%,#8C8E95 38%,#F4F5F7 52%,#6E7076 72%,#D6D8DC 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+}
+.h1{font-size:clamp(32px,6.4vw,64px);text-transform:uppercase}
+.h2{font-size:clamp(23px,3.8vw,33px);text-transform:uppercase}
+.h3{font-size:clamp(16px,2vw,19px)}
+/* НЕ inline-flex: с городом/именем клиента переменной длины строка кикера иногда не влезает
+   на 390px, а flex-контейнер без flex-wrap не переносит текст по словам — переносит посреди
+   якорного элемента (пойман на скрине m1-hero-390 — висящая точка-разделитель на второй строке).
+   Обычный инлайн с точкой как inline-block переносится как нормальный текст, слово за словом. */
+.kicker{font-size:11px;letter-spacing:.19em;text-transform:uppercase;color:var(--acc);font-weight:700;line-height:1.6}
+.kicker .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--acc);margin-right:8px;vertical-align:middle}
+.lead{color:var(--dim);font-size:clamp(14px,1.6vw,16.5px);max-width:60ch}
+.rule{height:2px;background:var(--acc);width:60px;border-radius:2px;margin:14px 0 0}
+.sec{padding:clamp(46px,7vw,86px) 0;position:relative}
+.sec+.sec{border-top:1px solid var(--line)}
+.schead{margin-bottom:clamp(24px,4vw,40px)}
+.demosw{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.demosw button{border:1px solid var(--line2);background:var(--card);color:var(--dim);border-radius:999px;padding:8px 14px;font-size:12.5px;cursor:pointer;font-weight:600}
+.demosw button.on{border-color:var(--acc);color:var(--acc);background:rgba(201,219,46,.08)}
+.demosw-note{font-size:11.5px;color:var(--mut);margin-top:8px}
+.reels{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+@media(max-width:980px){.reels{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.reels{grid-template-columns:repeat(2,1fr)}}
+.reel{position:relative;display:block;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);aspect-ratio:9/16;background:#000;text-decoration:none}
+.reel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.reel:hover img{transform:scale(1.04)}
+.reel .rt{position:absolute;left:0;right:0;bottom:0;padding:26px 10px 10px;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.88));color:#fff;font-size:12px;line-height:1.35;font-weight:600}
+.reel .rp{position:absolute;right:8px;top:8px;width:28px;height:28px;border-radius:50%;background:rgba(10,10,11,.7);border:1px solid rgba(201,219,46,.6);color:var(--acc);display:grid;place-items:center;font-size:11px}
+.reels-cta{margin-top:14px;font-size:13px;color:var(--dim)}
+.reels-cta a{color:var(--acc)}
+.pill{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:7px 13px;font-size:12.5px;color:var(--dim);display:inline-flex;align-items:center;gap:7px}
+.pill b{color:var(--ink);font-weight:650}
+.pill.a{border-color:rgba(201,219,46,.4);background:rgba(201,219,46,.08);color:var(--acc)}
+.btn{border:none;border-radius:var(--r-sm);padding:13px 22px;font-size:14.5px;font-weight:700;cursor:pointer;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:.15s;line-height:1.1}
+.btn.p{background:var(--acc);color:var(--accInk)}
+.btn.p:hover{background:#DCEF3C;transform:translateY(-1px)}
+.btn.g{background:transparent;color:var(--ink);border:1px solid var(--line2)}
+.btn.g:hover{border-color:var(--acc);color:var(--acc)}
+.btn.sm{padding:9px 14px;font-size:13px;border-radius:8px}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+
+/* ===== шапка: закреплена сверху, тонкая линия при скролле — не спорит с плавающими кнопками платформы (правый низ) ===== */
+.top{position:sticky;top:0;z-index:40;background:rgba(10,10,11,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line)}
+.topin{max-width:1160px;margin:0 auto;padding:11px 22px;display:flex;align-items:center;gap:14px}
+@media(max-width:520px){.topin{padding:10px 16px}}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0;text-decoration:none;color:var(--ink)}
+.dia{width:32px;height:32px;flex-shrink:0;transform:rotate(45deg);border:1.5px solid var(--acc);border-radius:4px;
+  display:grid;place-items:center;background:#000}
+.dia b{transform:rotate(-45deg);font-size:14px;color:#fff;font-weight:800;letter-spacing:-.04em}
+.logo .lt{font-size:11px;line-height:1.25;letter-spacing:.05em;text-transform:uppercase;color:var(--dim);font-weight:650}
+.logo .lt i{display:block;font-style:normal;font-size:9.5px;color:var(--mut);letter-spacing:.02em;text-transform:none}
+@media(max-width:460px){.logo .lt{display:none}}
+.topr{margin-left:auto;display:flex;align-items:center;gap:8px}
+.topcall{font-size:12.5px;color:var(--dim);text-decoration:none;padding:8px 10px;border-radius:8px;white-space:nowrap;border:1px solid transparent}
+.topcall:hover{color:var(--ink);border-color:var(--line)}
+@media(max-width:640px){.topcall span{display:none}}
+
+/* ===== обложка: тёплое фото ремесла под плотным градиентом — текст читается на любом снимке ===== */
+.cover{padding:clamp(30px,6vw,60px) 0 clamp(40px,6vw,72px)}
+.covgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(22px,3.4vw,44px);align-items:center}
+@media(max-width:860px){.covgrid{grid-template-columns:1fr}}
+.covimg{position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);aspect-ratio:4/3;background:#000}
+.covimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.82}
+.covimg .grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,11,.15) 0%,rgba(10,10,11,.55) 60%,rgba(10,10,11,.92) 100%)}
+.covimg .tag{position:absolute;left:14px;top:14px;background:rgba(10,10,11,.78);border:1px solid var(--line2);color:var(--dim);
+  font-size:11.5px;border-radius:20px;padding:6px 13px;backdrop-filter:blur(6px)}
+.covimg .badge{position:absolute;left:14px;right:14px;bottom:14px;background:rgba(16,16,18,.86);border:1px solid var(--line2);
+  border-radius:var(--r-md);padding:14px 16px;backdrop-filter:blur(8px)}
+.covimg .badge .bl{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.covimg .badge .bv{font-size:clamp(19px,2.6vw,24px);font-weight:800;color:var(--acc);margin-top:3px}
+.cmeta{margin-top:22px;display:flex;gap:9px;flex-wrap:wrap}
+.covbtns{margin-top:26px;display:flex;gap:11px;flex-wrap:wrap}
+.avatar-row{margin-top:22px;display:flex;align-items:center;gap:11px}
+.avatar-row img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:1.5px solid var(--line2)}
+.avatar-row .at{font-size:12.5px;color:var(--dim);line-height:1.35}
+.avatar-row .at b{color:var(--ink);font-weight:650}
+
+/* ===== оглавление по комнатам: липкая горизонтальная лента — план квартиры, не список позиций ===== */
+.roomnav-wrap{position:sticky;top:57px;z-index:30;background:rgba(10,10,11,.94);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);border-top:1px solid var(--line)}
+.roomnav{display:flex;gap:8px;overflow-x:auto;padding:10px 22px;scrollbar-width:none}
+.roomnav::-webkit-scrollbar{display:none}
+@media(max-width:520px){.roomnav{padding:10px 16px}}
+/* подсказка «тут можно скроллить дальше» — лента комнат редко влезает целиком на 390px,
+   без этого правый край выглядит как обрыв, а не как продолжение списка */
+.roomnav-wrap{position:relative}
+.roomnav-wrap::after{content:"";position:absolute;top:1px;bottom:1px;right:0;width:34px;
+  background:linear-gradient(90deg,rgba(10,10,11,0),rgba(10,10,11,.92));pointer-events:none}
+.rchip{flex-shrink:0;display:flex;flex-direction:column;gap:1px;border:1px solid var(--line);background:var(--card);
+  border-radius:11px;padding:8px 13px;cursor:pointer;transition:.15s;text-align:left}
+.rchip b{font-size:12.5px;color:var(--ink);font-weight:650;white-space:nowrap}
+.rchip small{font-size:11px;color:var(--mut);white-space:nowrap}
+.rchip.on{border-color:var(--acc);background:rgba(201,219,46,.09)}
+.rchip.on b{color:var(--acc)}
+
+/* ===== смета: сетка «контент + липкий итог» ===== */
+.qgrid{display:grid;grid-template-columns:1fr 336px;gap:clamp(18px,2.4vw,30px);align-items:start;margin-top:8px}
+@media(max-width:900px){.qgrid{grid-template-columns:1fr}}
+.rooms{display:flex;flex-direction:column;gap:clamp(34px,5vw,54px)}
+.room{scroll-margin-top:118px}
+.roomhead{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:16px;
+  padding-bottom:10px;border-bottom:1px solid var(--line)}
+.roomhead h3{font-size:clamp(18px,2.4vw,22px);font-weight:800;letter-spacing:-.01em}
+.roomhead .rtot{font-size:14.5px;color:var(--acc);font-weight:700;white-space:nowrap}
+.roomhead .ridx{color:var(--mut);font-weight:600;margin-right:8px;font-size:13px}
+
+/* карточка изделия: фото слева / характеристики и цена справа — как разворот каталога, только с ценой */
+.item{display:grid;grid-template-columns:220px 1fr;gap:0;border:1px solid var(--line);background:var(--card);
+  border-radius:var(--r-lg);overflow:hidden;margin-bottom:16px}
+@media(max-width:640px){.item{grid-template-columns:1fr}}
+.item .ph{position:relative;background:#000;min-height:180px}
+.item .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.item .ph.ph-empty{display:grid;place-items:center;background:var(--card2)}
+.item .ph.ph-empty svg{width:38px;height:38px;color:var(--line2)}
+.item .bd{padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.item .ttl{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.item .ttl h4{font-size:16.5px;font-weight:750;letter-spacing:-.005em}
+.item .ttl .px{font-size:17.5px;font-weight:800;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+.item .ttl .px small{display:block;font-size:11px;color:var(--mut);font-weight:500;text-align:right}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:5px 16px;font-size:12.5px}
+@media(max-width:420px){.specs{grid-template-columns:1fr}}
+.specs .sp{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed var(--line);padding-bottom:4px}
+.specs .sp span:first-child{color:var(--mut)}
+.specs .sp span:last-child{color:var(--dim);text-align:right;font-weight:550}
+
+/* вариант изделия — сегментированный переключатель прямо в карточке */
+.alts{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+.altbtn{border:1.5px solid var(--line);background:var(--card2);color:var(--dim);border-radius:9px;padding:7px 12px;
+  font-size:12px;cursor:pointer;transition:.15s;text-align:left;line-height:1.3}
+.altbtn b{display:block;font-size:12px;color:inherit}
+.altbtn small{display:block;color:var(--mut);font-size:10.5px;margin-top:1px}
+.altbtn.on{border-color:var(--acc);background:rgba(201,219,46,.09);color:var(--ink)}
+.altbtn.on small{color:var(--acc)}
+
+/* бейдж «пример формата» — только в демо, на карточках, где цифры варианта/апгрейда
+   взяты из ДРУГОГО проекта студии и показывают механику, а не смету этой квартиры */
+.demotag{display:inline-flex;align-items:center;gap:6px;border:1px dashed rgba(201,219,46,.55);
+  background:rgba(201,219,46,.07);color:var(--acc);border-radius:7px;padding:4px 9px;
+  font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;font-weight:700;margin-bottom:2px}
+.demotag b{font-weight:700}
+.demonote{font-size:11px;color:var(--mut);line-height:1.5;margin-top:-2px}
+
+/* апгрейд — тумблер BLUM/Boyard внутри карточки родителя, не отдельная строка сметы */
+.upg{display:flex;align-items:center;gap:11px;border:1px solid var(--line);background:var(--card2);border-radius:10px;
+  padding:10px 12px;margin-top:2px;cursor:pointer;transition:.15s}
+.upg:hover{border-color:var(--line2)}
+.upg.on{border-color:rgba(201,219,46,.45);background:rgba(201,219,46,.07)}
+.upg .tx{flex:1;min-width:0}
+.upg .tx b{display:block;font-size:12.5px;color:var(--ink)}
+.upg .tx small{display:block;color:var(--mut);font-size:11px;margin-top:2px;line-height:1.4}
+.upg .pr{font-size:12px;font-weight:700;color:var(--dim);white-space:nowrap}
+.upg.on .pr{color:var(--acc)}
+.sw{width:36px;height:21px;border-radius:11px;background:var(--line2);position:relative;flex-shrink:0;transition:.18s}
+.sw:after{content:"";position:absolute;left:2.5px;top:2.5px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.18s}
+.upg.on .sw{background:var(--acc)}
+.upg.on .sw:after{transform:translateX(15px)}
+
+/* строка «в простом формате» — если пришли только name/unit/price/qty/optional, без фото и характеристик */
+.simple-list{border:1px solid var(--line);background:var(--card);border-radius:var(--r-lg);overflow:hidden}
+.srow{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line)}
+.srow:last-child{border-bottom:none}
+.srow .sn{flex:1;min-width:0;font-size:14px;font-weight:600}
+.srow .su{font-size:12px;color:var(--mut);white-space:nowrap}
+.srow .sq{font-size:12px;color:var(--mut);white-space:nowrap;width:64px;text-align:right}
+.srow .sv{font-size:14.5px;font-weight:700;white-space:nowrap;width:120px;text-align:right;font-variant-numeric:tabular-nums}
+
+/* ===== итог: липкий блок-«счётчик стройки» ===== */
+.sum{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--card);overflow:hidden;position:sticky;top:118px}
+@media(max-width:900px){.sum{position:static;top:auto}}
+.sumh{padding:14px 17px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sumh b{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);font-weight:700}
+.sumbody{padding:15px 17px;display:flex;flex-direction:column;gap:9px}
+.sumrow{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--dim)}
+.sumrow.discount{color:var(--acc)}
+.sumdiv{height:1px;background:var(--line);margin:3px 0}
+.sumtotal{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.sumtotal .l{font-size:12.5px;color:var(--mut)}
+.sumtotal .v{font-size:clamp(22px,2.6vw,27px);font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.sumnote{font-size:11.5px;color:var(--mut);line-height:1.5}
+.sumftr{padding:14px 17px;border-top:1px solid var(--line);display:flex;gap:9px;flex-wrap:wrap}
+
+/* мобильная сжатая полоса итога — липкая СВЕРХУ (не внизу справа, зона платформы не трогается) */
+.summ{display:none;position:sticky;top:118px;z-index:29;background:rgba(16,16,18,.96);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);padding:10px 16px;align-items:center;gap:10px;cursor:pointer}
+.summ .l{font-size:11px;color:var(--mut)}
+.summ .v{font-size:16.5px;font-weight:800;color:var(--ink);margin-left:auto;font-variant-numeric:tabular-nums}
+.summ .chev{width:9px;height:9px;border-right:1.5px solid var(--mut);border-bottom:1.5px solid var(--mut);transform:rotate(45deg);transition:.2s}
+.summ.open .chev{transform:rotate(225deg)}
+@media(max-width:900px){.summ{display:flex}}
+
+/* ===== условия ===== */
+.terms{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:820px){.terms{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.terms{grid-template-columns:1fr}}
+.tcard{border:1px solid var(--line);background:var(--card);border-radius:var(--r-md);padding:16px 17px}
+.tcard .ti{width:34px;height:34px;border-radius:9px;background:rgba(201,219,46,.1);border:1px solid rgba(201,219,46,.3);
+  display:grid;place-items:center;color:var(--acc);margin-bottom:10px}
+.tcard b{display:block;font-size:14px;margin-bottom:5px}
+.tcard p{font-size:12.5px;color:var(--dim);line-height:1.5}
+.brandrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+
+/* ===== «как строится проект»: пятишаговый таймлайн с ромб-маркерами — продолжает мотив
+   логотипа внутри контента (не только в шапке) и отвечает на «а что после КП» ===== */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:36px;position:relative}
+@media(max-width:820px){.flow{grid-template-columns:1fr;gap:18px}}
+.flow-step{position:relative;padding:0 14px 0 0}
+@media(max-width:820px){.flow-step{padding:0 0 0 40px;display:flex;flex-direction:column;gap:2px}}
+.flow-step .fdia{width:20px;height:20px;flex-shrink:0;transform:rotate(45deg);border:1.5px solid var(--acc);
+  border-radius:3px;background:var(--bg);display:grid;place-items:center;margin-bottom:14px;position:relative;z-index:2}
+.flow-step .fdia b{transform:rotate(-45deg);font-size:9px;color:var(--acc);font-weight:800}
+@media(max-width:820px){.flow-step .fdia{position:absolute;left:0;top:1px;margin-bottom:0}}
+.flow-step:not(:last-child)::before{content:"";position:absolute;top:9px;left:24px;right:-4px;height:1px;background:var(--line2)}
+@media(max-width:820px){.flow-step:not(:last-child)::before{top:32px;left:9px;right:auto;width:1px;height:calc(100% + 6px);bottom:auto}}
+.flow-step b.ft{display:block;font-size:13.5px;color:var(--ink);font-weight:700;margin-bottom:4px}
+.flow-step p{font-size:12px;color:var(--mut);line-height:1.5;max-width:26ch}
+
+/* ===== работы: галерея каталога — крупный первый кадр + неоднородные плитки (не строгая сетка
+   4×3, а «доказательная» подача, как разворот портфолио) ===== */
+.cases{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:860px){.cases{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.cases{grid-template-columns:repeat(2,1fr)}}
+.case{position:relative;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);aspect-ratio:4/3;cursor:pointer;background:#000}
+@media(min-width:561px){
+  .case:nth-child(1){grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+  .case:nth-child(8){grid-column:span 2;aspect-ratio:16/8}
+}
+.case img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.case:hover img{transform:scale(1.05)}
+.case .cap{position:absolute;left:0;right:0;bottom:0;padding:9px 10px 7px;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.82));
+  font-size:11px;color:#fff}
+.lightbox{position:fixed;inset:0;z-index:80;background:rgba(6,6,7,.92);display:none;align-items:center;justify-content:center;padding:40px 20px}
+.lightbox.open{display:flex}
+.lightbox img{max-width:min(920px,92vw);max-height:82vh;border-radius:10px;border:1px solid var(--line2)}
+.lightbox .lcap{position:absolute;left:0;right:0;bottom:22px;text-align:center;color:var(--dim);font-size:13px}
+.lightbox .lclose{position:absolute;top:18px;right:18px;width:38px;height:38px;border-radius:50%;background:var(--card);
+  border:1px solid var(--line2);color:var(--ink);display:grid;place-items:center;cursor:pointer;font-size:18px;line-height:1}
+
+/* ===== отзывы: честная заглушка, если платформа не передала медиа ===== */
+.revbox{border:1.5px dashed var(--line2);border-radius:var(--r-lg);padding:clamp(28px,5vw,44px);text-align:center;background:var(--card)}
+.revbox .ri{width:44px;height:44px;margin:0 auto 14px;border-radius:50%;background:var(--card2);border:1px solid var(--line2);
+  display:grid;place-items:center;color:var(--mut)}
+.revbox p{color:var(--mut);font-size:13.5px;max-width:46ch;margin:0 auto}
+.revgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.revcard{border:1px solid var(--line);background:var(--card);border-radius:var(--r-md);padding:16px}
+.revcard .stars{color:var(--acc);font-size:13px;letter-spacing:2px}
+.revcard .revkind{color:var(--mut);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.revcard p{font-size:13px;color:var(--dim);margin-top:8px;line-height:1.55}
+.revcard .who{margin-top:10px;font-size:12px;color:var(--mut)}
+
+/* ===== финал/принять ===== */
+.accept{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(20px,3vw,36px);align-items:start}
+@media(max-width:860px){.accept{grid-template-columns:1fr}}
+.ctcard{border:1px solid var(--line);background:var(--card);border-radius:var(--r-lg);padding:22px}
+.ctrow{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.ctrow:last-child{border-bottom:none}
+.ctrow .ci{width:36px;height:36px;border-radius:9px;background:var(--card2);border:1px solid var(--line2);display:grid;
+  place-items:center;color:var(--acc);flex-shrink:0}
+.ctrow a,.ctrow span.val{color:var(--ink);font-weight:650;text-decoration:none;font-size:14.5px}
+.ctrow a:hover{color:var(--acc)}
+.ctrow .cl{font-size:11px;color:var(--mut);display:block;margin-bottom:2px}
+.deadline{border:1px solid rgba(201,219,46,.35);background:rgba(201,219,46,.06);border-radius:var(--r-md);padding:14px 16px;margin-top:16px}
+.deadline b{color:var(--acc);font-size:14px}
+.reserve-note{font-size:11.5px;color:var(--mut);margin-top:14px;line-height:1.5}
+
+footer{padding:26px 0 100px;border-top:1px solid var(--line);color:var(--mut);font-size:12px}
+footer .frow{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+footer .fbrand{display:flex;align-items:center;gap:9px}
+
+/* ===== печать: светлая версия — переопределяем ТОКЕНЫ, а не каждый класс отдельно,
+   иначе часть текста остаётся светлой на белом листе (было — см. ревью скриншотов) ===== */
+@media print{
+  :root{
+    color-scheme:light;
+    --bg:#fff; --bg2:#fff; --card:#fff; --card2:#f6f6f4; --line:#ddd; --line2:#ccc;
+    --ink:#111; --dim:#333; --mut:#666;
+    --acc:#5c6b00; --acc2:#5c6b00; --accInk:#fff;
+  }
+  body{background:#fff;color:#111}
+  .h1,.h2,.h3{background:none;-webkit-text-fill-color:#111;color:#111}
+  .sec{padding:14px 0}
+  .sec+.sec{border-top:1px solid #ddd}
+  .qgrid{grid-template-columns:1fr}
+  .sum{position:static}
+  /* хрома, бессмысленная на бумаге: навигация, липкие панели, лайтбокс, кнопки печати */
+  .top,.roomnav-wrap,.summ,.lightbox,.covimg,#cases,#reviews,#reels,.demosw,.demosw-note,[data-action="print"]{display:none!important}
+  /* карточка изделия печатается целиком — «прячется до скролла» касается только экрана */
+  .rv{opacity:1!important;transform:none!important;transition:none!important}
+  /* вариант изделия: печатаем только выбранный (как факт сметы), остальные кнопки — шум */
+  .altbtn{display:none!important}
+  .altbtn.on{display:inline-flex!important;border:none;background:none;padding:0;color:#111;font-weight:700}
+  .altbtn.on small{color:#5c6b00}
+  .upg .sw{display:none!important}
+  .flow{grid-template-columns:1fr;gap:12px}
+  .flow-step{padding:0 0 0 30px;display:flex;flex-direction:column;gap:2px}
+  .flow-step .fdia{position:absolute;left:0;top:1px;margin-bottom:0;width:16px;height:16px}
+  .flow-step:not(:last-child)::before{display:none}
+  .demotag{border-color:#999;color:#5c6b00;background:none}
+  footer{padding-bottom:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ключевые секции размечены data-kp-block — контракт спец-заказа OpMax -->
+
+<header class="top" data-kp-block="nav">
+  <div class="topin">
+    <a class="logo" href="#cover">
+      <span class="dia"><b>М</b></span>
+      <span class="lt">Студия мебели<i>Сергея Миронова</i></span>
+    </a>
+    <nav class="topr">
+      <a class="topcall" id="topPhone" href="#"><span>Позвонить · </span><span id="topPhoneNum">+7 934 888-32-29</span></a>
+      <button class="btn g sm" type="button" data-action="print">Печать / PDF</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="sec cover" id="cover" data-kp-block="cover">
+  <div class="wrap covgrid">
+    <div>
+      <span class="kicker"><span class="dot"></span> Комплексный проект<span id="coverCityWrap" hidden> · <span id="coverCity"></span></span></span>
+      <h1 class="h1" style="margin-top:16px">Мебель на заказ<br>для <span id="coverClient">вашей квартиры</span></h1>
+      <div class="rule"></div>
+      <p class="lead" style="margin-top:16px">
+        Кухня, гардеробная, шкафы и мебель для спальни и санузла — один проект, один замер,
+        единая смета по комнатам. Ниже — состав и цена каждого изделия, варианты исполнения
+        и апгрейды фурнитуры прямо в карточке.
+      </p>
+      <div class="cmeta">
+        <span class="pill">7+ лет в мебели на заказ</span>
+        <span class="pill">Гарантия 24 месяца</span>
+        <span class="pill a">EGGER · Увадрев</span>
+        <span class="pill a">BLUM · Boyard · Hettich</span>
+      </div>
+      <p class="demonote" style="margin-top:10px">Не «аналоги» — конкретные бренды корпуса и фурнитуры прописаны в характеристиках каждого изделия ниже.</p>
+      <div class="covbtns">
+        <a class="btn p" href="#quote" data-scroll="quote">Смотреть смету по комнатам</a>
+        <a class="btn g" href="#cases" data-scroll="cases">Наши работы</a>
+      </div>
+      <div class="avatar-row">
+        <img src="__IMG_avatar__" alt="Сергей Миронов" width="42" height="42">
+        <span class="at"><b>Сергей Миронов</b> — дизайнер мебели, автор проекта</span>
+      </div>
+    </div>
+    <div class="covimg rv">
+      <img src="__IMG_hero__" alt="Пример мебели на заказ — студия Сергея Миронова" width="1000" height="612">
+      <div class="grad"></div>
+      <span class="tag">Пример проекта</span>
+      <div class="badge">
+        <div class="bl">Смета по позициям</div>
+        <div class="bv num" id="coverTotal">—&#8201;₽</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- === смета по комнатам: план квартиры вместо плоского списка позиций === -->
+<div class="roomnav-wrap" id="roomNavWrap">
+  <div class="wrap"><div class="roomnav" id="roomNav"></div></div>
+</div>
+<div class="summ" id="mobSum" role="button" tabindex="0">
+  <span class="l">Смета по проекту</span>
+  <span class="v num" id="mobSumTotal">—&#8201;₽</span>
+  <span class="chev"></span>
+</div>
+
+<section class="sec" id="quote" data-kp-block="quote">
+  <div class="wrap">
+    <div class="schead">
+      <span class="kicker"><span class="dot"></span> Смета</span>
+      <h2 class="h2" style="margin-top:10px">Изделия по комнатам</h2>
+      <p class="lead" style="margin-top:10px">Переключайте варианты исполнения и включайте апгрейды фурнитуры —
+        сумма пересчитывается сразу в каждой карточке и в итоге справа.</p>
+      <div id="demoSwitch"></div>
+    </div>
+    <div class="qgrid">
+      <div class="rooms" id="rooms"></div>
+      <aside class="sum" id="sumAside">
+        <div class="sumh"><b>Итого по проекту</b></div>
+        <div class="sumbody" id="sumBody"></div>
+        <div class="sumftr">
+          <button class="btn p sm" type="button" data-action="print" style="flex:1;justify-content:center">Скачать смету (PDF)</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="terms" data-kp-block="terms">
+  <div class="wrap">
+    <div class="schead">
+      <span class="kicker"><span class="dot"></span> Условия</span>
+      <h2 class="h2" style="margin-top:10px">Материалы, сроки, доставка</h2>
+    </div>
+    <div class="terms" id="termsGrid"></div>
+    <div class="brandrow">
+      <span class="pill">Корпус: ЛДСП EGGER / Увадрев, 16 мм</span>
+      <span class="pill">Фасады: МДФ ПВХ-плёнка, ЛДСП, эмаль</span>
+      <span class="pill">Фурнитура: BLUM (Австрия) · Boyard · Hettich</span>
+    </div>
+    <div class="schead" style="margin-top:clamp(40px,6vw,64px);margin-bottom:22px">
+      <span class="kicker"><span class="dot"></span> Дальше</span>
+      <h3 class="h3" style="margin-top:8px;font-size:clamp(18px,2.2vw,21px)">Как строится проект</h3>
+    </div>
+    <div class="flow" id="flowSteps"></div>
+  </div>
+</section>
+
+<section class="sec" id="cases" data-kp-block="cases">
+  <div class="wrap">
+    <div class="schead">
+      <span class="kicker"><span class="dot"></span> Портфолио</span>
+      <h2 class="h2" style="margin-top:10px">Наши работы</h2>
+      <p class="lead" style="margin-top:10px">Кухни, гардеробные и шкафы, изготовленные студией. Это фотографии объектов
+        после монтажа, а не 3D-рендеры — доказательство, а не обещание.</p>
+    </div>
+    <div class="cases" id="casesGrid"></div>
+  </div>
+</section>
+
+<section class="sec" id="reels" data-kp-block="video">
+  <div class="wrap">
+    <div class="schead">
+      <span class="kicker"><span class="dot"></span> Видео</span>
+      <h2 class="h2" style="margin-top:10px">Сергей о мебели</h2>
+      <p class="lead" style="margin-top:10px">Короткие ролики из канала студии: как проходит замер, какие материалы и фурнитуру выбрать, что выдерживают фасады.</p>
+    </div>
+    <div class="reels" id="reelsGrid"></div>
+    <p class="reels-cta">Все ролики — в Telegram-канале <a href="https://t.me/kuhni_sergey" target="_blank" rel="noopener">@kuhni_sergey</a></p>
+  </div>
+</section>
+
+<section class="sec" id="reviews" data-kp-block="reviews" hidden>
+  <div class="wrap">
+    <div class="schead">
+      <span class="kicker"><span class="dot"></span> Отзывы</span>
+      <h2 class="h2" style="margin-top:10px">Что говорят клиенты</h2>
+    </div>
+    <div id="reviewsSlot"></div>
+  </div>
+</section>
+
+<section class="sec" id="accept" data-kp-block="accept">
+  <div class="wrap accept">
+    <div class="rv">
+      <span class="kicker"><span class="dot"></span> Далее</span>
+      <h2 class="h2" style="margin-top:10px">Готовы обсудить проект?</h2>
+      <p class="lead" style="margin-top:12px">
+        Смета выше — предварительная, по данным замера и подобранным материалам. Финальная цена
+        фиксируется в договоре после уточнения размеров на месте. Возникли вопросы по составу
+        или срокам — напишите или позвоните напрямую.
+      </p>
+      <div class="reserve-note">Кнопки «Задать вопрос» и «Принять предложение» — в правом нижнем углу экрана.</div>
+      <div id="deadlineSlot"></div>
+    </div>
+    <div class="ctcard" data-kp-block="contacts">
+      <div class="ctrow">
+        <span class="ci">☎</span>
+        <div><span class="cl">Телефон</span><a id="ctPhone" href="#">+7 934 888-32-29</a></div>
+      </div>
+      <div class="ctrow" id="ctTgRow" style="display:none">
+        <span class="ci">✎</span>
+        <div><span class="cl">Telegram</span><a id="ctTg" href="#" target="_blank" rel="noopener">—</a></div>
+      </div>
+      <div class="ctrow" id="ctMaxRow" style="display:none">
+        <span class="ci">◆</span>
+        <div><span class="cl">MAX</span><span class="val" id="ctMax">—</span></div>
+      </div>
+      <div class="ctrow">
+        <span class="ci">i</span>
+        <div><span class="cl">Кто на связи</span><span class="val" id="ctName">Студия мебели Сергея Миронова</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap frow">
+    <div class="fbrand">
+      <span class="dia" style="width:24px;height:24px"><b style="font-size:10px">М</b></span>
+      <span>Студия мебели Сергея Миронова — кухни, гардеробные, мебель на заказ</span>
+    </div>
+    <button class="btn g sm" type="button" data-action="print">Печать / PDF</button>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lclose" type="button" data-action="lb-close" aria-label="Закрыть">&times;</button>
+  <img id="lbImg" src="" alt="">
+  <div class="lcap" id="lbCap"></div>
+</div>
+
+<div hidden data-kp-estimate data-kp-contacts></div>
+
+<script>
+/*
+ * ===== Расширенный формат строки сметы (макет «Квартира по комнатам», A-rooms) =====
+ * Платформа кладёт window.KP_CONFIG до вёрстки (см. docs/design/clients/README-спец-заказ.md).
+ * Сегодняшний формат строки — { name, unit, price, qty, optional? } — читается ЦЕЛИКОМ и
+ * достойно выглядит сам по себе (простой список, см. renderSimpleList). Ниже — необязательные
+ * поля, которые макет использует, если менеджер их заполнил (в кабинете OpMax):
+ *
+ *   id       string   уникальный ключ строки — нужен, чтобы апгрейды (item.parent) и алгоритм
+ *                      выбора варианта могли сослаться на конкретное изделие. Без id строка
+ *                      просто не может быть родителем апгрейда — ведёт себя как обычная позиция.
+ *   group    string    комната/группа («Кухня», «Спальня»…) — по ней строятся оглавление и
+ *                       разделы сметы. Нет группы у ни одной строки — макет показывает
+ *                       единый список без комнат (старое поведение).
+ *   img      string    картинка карточки (data: URI или https-ссылка). Нет — вместо фото
+ *                       нейтральная плитка-заглушка, карточка всё равно не выглядит «сломанной».
+ *   specs    [string,string][]  пары «характеристика — значение» под ценой (материал корпуса,
+ *                       фасад, фурнитура…). Показываются как компактная таблица 2 колонки.
+ *   alts     {title, price, specs?}[]  альтернативные исполнения ТОГО ЖЕ изделия (например,
+ *                       «как в проекте» / «фасад Этерно»). Первый элемент обычно повторяет
+ *                       name/price базовой строки — тогда сумма при загрузке совпадает с price.
+ *                       Выбор другого варианта ЗАМЕНЯЕТ цену и характеристики в смете. Важно:
+ *                       alts[i].specs, если указан, — это ПОЛНАЯ таблица характеристик для этого
+ *                       варианта (не патч/merge поверх base specs по совпадению текста подписи).
+ *                       Раньше подписи сравнивались строкой («Фасад» vs «Фасады») и при
+ *                       несовпадении строка задваивалась вместо замены — теперь такой баг
+ *                       невозможен архитектурно: alts[i].specs просто целиком подменяет specs
+ *                       на экране, менеджеру в кабинете OpMax достаточно один раз скопировать
+ *                       базовую таблицу и поправить нужные строки, а не подбирать точный текст.
+ *   parent   string     эта строка — апгрейд БАЗОВОЙ строки с таким id (например, «ящики →
+ *                       BLUM LEGRABOX»). Рисуется тумблером внутри карточки родителя, а не
+ *                       отдельной строкой сметы. Обычно вместе с optional:true — по умолчанию
+ *                       выключен, доплата не входит в итог, пока клиент/менеджер не включит.
+ *
+ * Если у СТРОКИ нет ни img, ни specs, ни alts, ни parent — она рендерится как раньше, простой
+ * строкой в компактном списке (renderSimpleList), без больших карточек. Это гарантирует, что
+ * сегодняшние данные OpMax (только name/unit/price/qty/optional) выглядят опрятно, а не пусто.
+ *
+ * variants (на уровне KP_CONFIG, не строки) — несколько ЦЕЛЬНЫХ комплектов на выбор клиента
+ * («Стандарт» / «Премиум»); макет поддерживает и его — переключатель вверху сметы, внутри
+ * каждого работает та же группировка по комнатам.
+ *
+ * Демо-бейдж «пример формата»: если платформа не передала KP_CONFIG (IS_DEMO === true) и у
+ * изделия есть alts/апгрейд, карточка получает пунктирный жёлто-лаймовый тег — в демо цифры
+ * вариантов и апгрейда BLUM взяты из ДРУГОГО проекта студии (иллюстрация механики). На реальном
+ * KP_CONFIG клиента бейдж не рисуется — там alts/parent, если менеджер их заполнил, это его
+ * настоящие цифры и без предупреждения.
+ */
+(function(){
+  "use strict";
+
+  var IMG = {
+    kitchen:"__IMG_kitchen__", tvzone:"__IMG_tvzone__", closet:"__IMG_closet__",
+    bedroom:"__IMG_bedroom__", nightstand:"__IMG_nightstand__", wardrobe:"__IMG_wardrobe__",
+    bathcab:"__IMG_bathcab__", sanuzel:"__IMG_sanuzel__", console:"__IMG_console__",
+    avatar:"__IMG_avatar__", hero:"__IMG_hero__",
+    case1:"__IMG_case1__", case2:"__IMG_case2__", case3:"__IMG_case3__", case4:"__IMG_case4__",
+    case5:"__IMG_case5__", case6:"__IMG_case6__", case7:"__IMG_case7__", case8:"__IMG_case8__",
+    case9:"__IMG_case9__", case10:"__IMG_case10__", case11:"__IMG_case11__", case12:"__IMG_case12__",
+    sv_kitchen:"__IMG_sv_kitchen__", sv_hall:"__IMG_sv_hall__", sv_mirror:"__IMG_sv_mirror__", sv_san:"__IMG_sv_san__",
+    sv_closet:"__IMG_sv_closet__", sv_kids:"__IMG_sv_kids__", sv_tv:"__IMG_sv_tv__", sv_night:"__IMG_sv_night__",
+    reel1:"__IMG_reel1__", reel2:"__IMG_reel2__", reel3:"__IMG_reel3__", reel4:"__IMG_reel4__", reel5:"__IMG_reel5__", reel6:"__IMG_reel6__"
+  };
+
+  /* ролики канала студии (обложки с Яндекс Диска Сергея, 25.09.2026) */
+  var REELS = [
+    {img:IMG.reel1, t:"Как проходит замер"},
+    {img:IMG.reel2, t:"Какие образцы мы привозим на замер"},
+    {img:IMG.reel3, t:"Топ-3 ошибки при выборе шкафа"},
+    {img:IMG.reel4, t:"Какие ящики выбрать"},
+    {img:IMG.reel5, t:"Что выдерживают фасады"},
+    {img:IMG.reel6, t:"Обзор кухни: фасады в эмали"}
+  ];
+
+  var CASES = [
+    {img:IMG.case1,  cap:"Кухня, белые фасады без ручек и тёмная столешница"},
+    {img:IMG.case2,  cap:"Кухня, бирюзовые фасады и фартук «ёлочкой»"},
+    {img:IMG.case3,  cap:"Бирюзовая кухня: столешница и витрина"},
+    {img:IMG.case4,  cap:"Кухня, серые фасады и мозаичный фартук"},
+    {img:IMG.case5,  cap:"Пеналы под встроенную технику и витрина"},
+    {img:IMG.case6,  cap:"Кухня, мятный глянец и каменный фартук"},
+    {img:IMG.case7,  cap:"Кухня, графитовые фасады и полуостров"},
+    {img:IMG.case8,  cap:"Светлая кухня с обеденной зоной"},
+    {img:IMG.case9,  cap:"Фрезерованный фасад и ручки-кноб"},
+    {img:IMG.case10, cap:"Шкаф: полки, штанга и выдвижные ящики"},
+    {img:IMG.case11, cap:"Шкафы вокруг изголовья кровати"},
+    {img:IMG.case12, cap:"Комод и тумбы для спальни, фрезерованные фасады"}
+  ];
+
+  /* ===== демо — ДВА реальных проекта студии, имена клиентов скрыты (25.09.2026):
+     «kvartira» — КП от 11.09.2026 ровно как у Сергея: 9 изделий, итог 1 947 150 ₽;
+     «varianty» — КП №2: его настоящие варианты изделий и доплаты за BLUM.
+     Ни одной цены, варианта или характеристики сверх его документов — сверено построчно. */
+  var DEMOS = {
+    kvartira: { title:"Квартира целиком · 9 изделий", items:[
+      { id:"kitchen", group:"Кухня", name:"Кухня", unit:"комплект", price:465000, qty:1, img:IMG.kitchen,
+        specs:[["Корпус","ЛДСП EGGER, 16 мм"],["Фасады","МДФ, плёнка ПВХ + фреза"],["Задняя стенка","ХДФ"],
+          ["Петли","BLUM (Австрия), с доводчиком"],["Ящики","Тандембокс Boyard Start, 4 шт"],["Открывание","Tip-on Blum"],
+          ["Комплектация","сушка, поддон, лоток, подсветка (комплект)"],["Ручки","8 шт"]] },
+      { id:"tvzone", group:"Гостиная", name:"Шкаф «ТВ-зона»", unit:"комплект", price:284600, qty:1, img:IMG.tvzone,
+        specs:[["Корпус","ЛДСП EGGER, 16 мм"],["Фасады","ЛДСП EGGER, 16 мм; под дерево — EGGER"],["Открытая полка","EGGER, задняя стенка — зеркало"],
+          ["Задняя стенка","ХДФ"],["Открывание","Tip-on на верхних секциях"],["Фурнитура","Boyard: петли с доводом, ящики скрытого монтажа — 3 шт"],["Ручки","6 шт"]] },
+      { id:"console", group:"Гостиная", name:"Консоль в гостиной", unit:"шт", price:14500, qty:1, img:IMG.console,
+        specs:[["Материал","полностью EGGER"]] },
+      { id:"bedroom", group:"Спальня", name:"Мебель для спальни", unit:"комплект", price:71050, qty:1, img:IMG.bedroom,
+        specs:[["Корпус","ЛДСП Увадрев, 16 мм (Россия)"],["Фасады","ЛДСП EGGER, 16 мм"],["Фурнитура","Boyard: петли с доводом, ящики скрытого монтажа"],["Ручки","4 шт"]] },
+      { id:"nightstand", group:"Спальня", name:"Прикроватная тумба", unit:"шт", price:26750, qty:1, img:IMG.nightstand,
+        specs:[["Материал","полностью EGGER"],["Фурнитура","Boyard, ящик скрытого монтажа"],["Открывание","от нажатия (tip-on)"]] },
+      { id:"wardrobe", group:"Спальня", name:"Шкаф", unit:"шт", price:232800, qty:1, img:IMG.wardrobe,
+        specs:[["Корпус","ЛДСП Увадрев, 16 мм (Россия)"],["Фасады","МДФ, плёнка ПВХ"],["Открытые полки","ЛДСП EGGER, 16 мм"],
+          ["Задняя стенка","ХДФ; у открытых полок — ЛДСП EGGER"],["Фурнитура","петли Blum с доводом; ящики скрытого монтажа Boyard"],["Штанга","овальная"],["Ручки","3 шт"]] },
+      { id:"closet", group:"Гардеробная", name:"Гардеробная", unit:"комплект", price:609600, qty:1, img:IMG.closet,
+        specs:[["Корпус","ЛДСП EGGER / Увадрев, 16 мм (цена — в EGGER)"],["Фасады","МДФ, плёнка ПВХ с фрезой + патина"],["Вставка на фасадах","зеркало"],
+          ["Задняя стенка","ХДФ (в закрытом шкафу)"],["Фурнитура","Boyard: петли с доводом, ящики скрытого монтажа"],["Штанга","овальная"],["Подсветка","комплект"],["Ручки","4 шт"]] },
+      { id:"bathcab", group:"Ванная и санузел", name:"Тумба в ванную", unit:"шт", price:63850, qty:1, img:IMG.bathcab,
+        specs:[["Корпус","ЛДСП Увадрев, 16 мм (Россия)"],["Фасады","МДФ, плёнка ПВХ 16 и 20 мм, с фрезой"],["Фурнитура","петли BLUM; ящики скрытого монтажа Boyard — 2 шт"],
+          ["Навесы","есть"],["Подсветка","есть"],["Ручки","3 шт"],["Примечание","без учёта столешницы"]] },
+      { id:"sanuzel", group:"Ванная и санузел", name:"Санузел", unit:"комплект", price:179000, qty:1, img:IMG.sanuzel,
+        specs:[["Корпус","ЛДСП EGGER, 16 мм"],["Фасады","Этерно"],["Фурнитура","Blum: петли с доводом, tip-on на фасадах"]] }
+    ]},
+    varianty: { title:"С вариантами и доплатами · 9 изделий", items:[
+      { id:"kitchen", group:"Кухня", name:"Кухонный гарнитур", unit:"комплект", price:308000, qty:1, img:IMG.sv_kitchen,
+        specs:[["Корпус","ЛДСП Увадрев, 16 мм (Россия)"],["Фасады и видимые бока","ЛДСП EGGER, 16 мм (Дуб Каселла коричневый H1386 ST40)"],["Тандембокс","Boyard"],
+          ["Петли с доводчиком","BLUM"],["Сушка","двухуровневая с поддоном"],["Ручка-профиль Gola","горизонтальный и вертикальный"],["Примечание","без учёта столешницы"]],
+        alts:[
+          {title:"Вариант 1 · EGGER", price:308000},
+          {title:"Вариант 2 · ETERNO", price:370000, specs:[["Корпус","ЛДСП Увадрев, 16 мм (Россия)"],["Фасады и видимые бока","ETERNO ETW-29 MINDAL"],["Тандембокс","Boyard"],
+            ["Петли с доводчиком","BLUM"],["Сушка","двухуровневая с поддоном"],["Ручка-профиль Gola","горизонтальный и вертикальный"],["Примечание","без учёта столешницы"]]}
+        ] },
+      { id:"kitchen-blum", parent:"kitchen", group:"Кухня", name:"Ящики BLUM вместо Boyard", unit:"", price:73000, qty:1, optional:true,
+        specs:[["Было","тандембокс Boyard"],["Станет","ящики BLUM"]] },
+      { id:"hall", group:"Прихожая", name:"Шкаф в прихожую", unit:"шт", price:188000, qty:1, img:IMG.sv_hall,
+        specs:[["Корпус","ЛДСП Увадрев, 16 мм (Россия)"],["Фасады и видимый бок","МДФ в плёнке ПВХ (WDM Мэджик Меркури)"],["Петли с доводчиком","Boyard"],
+          ["Штанга","овальная"],["Антресоли","открывание от нажатия"],["Ручка","960 мм"]] },
+      { id:"hall-blum", parent:"hall", group:"Прихожая", name:"Петли BLUM вместо Boyard", unit:"", price:25000, qty:1, optional:true,
+        specs:[["Было","петли Boyard"],["Станет","петли BLUM"]] },
+      { id:"mirror", group:"Прихожая", name:"Зеркало с консолью", unit:"шт", price:39000, qty:1, img:IMG.sv_mirror,
+        specs:[["Корпус и фасад","МДФ в плёнке ПВХ (WDM Мэджик Меркури)"],["Петли с доводчиком","Boyard"],["Открывание фасада","от нажатия"],
+          ["Навесы зеркала","SAH"],["Навесы консоли","CAMAR 807"],["Зеркало","серебро"],["Подсветка","есть"]] },
+      { id:"san", group:"Санузел", name:"Шкафы в санузел", unit:"комплект", price:134000, qty:1, img:IMG.sv_san,
+        specs:[["Корпус","ЛДСП EGGER, 16 мм (однотон)"],["Фасады и видимый бок","ЛДСП EGGER, 16 мм (однотон)"],["Петли с доводчиком","Boyard"],
+          ["Направляющие скрытого монтажа","Boyard"],["Антресоли","открывание от нажатия"],["Ручка","торцевая"],["Навесы","CAMAR 807"]],
+        alts:[
+          {title:"Вариант 1 · фасады ЛДСП", price:134000},
+          {title:"Вариант 2 · фасады МДФ", price:170000, specs:[["Корпус","ЛДСП EGGER, 16 мм (однотон)"],["Фасады и видимый бок","МДФ в плёнке ПВХ"],["Петли с доводчиком","Boyard"],
+            ["Направляющие скрытого монтажа","Boyard"],["Антресоли","открывание от нажатия"],["Ручка","торцевая"],["Навесы","CAMAR 807"]]}
+        ] },
+      { id:"closet", group:"Гардеробная", name:"Гардеробная", unit:"комплект", price:213000, qty:1, img:IMG.sv_closet,
+        specs:[["Корпус","ЛДСП Увадрев, 16 мм (Россия), под дерево"],["Петли с доводчиком","Boyard"],["Штанга","овальная"],
+          ["Направляющие скрытого монтажа","Boyard"],["Корзина для белья","2 шт"]],
+        alts:[
+          {title:"Вариант 1 · Увадрев", price:213000},
+          {title:"Вариант 2 · EGGER", price:367000, specs:[["Корпус","ЛДСП EGGER, 16 мм (Дуб текстурный H1316 ST17)"],["Петли с доводчиком","Boyard"],["Штанга","овальная"],
+            ["Направляющие скрытого монтажа","Boyard"],["Корзина для белья","2 шт"]]}
+        ] },
+      { id:"kids", group:"Детская", name:"Шкаф, стеллаж и стол", unit:"комплект", price:191000, qty:1, img:IMG.sv_kids,
+        specs:[["Корпус шкафа","ЛДСП Увадрев, 16 мм (Россия)"],["Фасад и видимый бок шкафа","МДФ в плёнке (WDM Мэджик Лайт MPT 78521)"],["Направляющие скрытого монтажа","Boyard"],
+          ["Петли с доводчиком","Boyard"],["Штанга","овальная"],["Антресоли","открывание от нажатия"],["Стеллаж и задняя стенка","ЛДСП EGGER (Розовый антик U325 ST9)"],
+          ["Столешница стола","ЛДСП EGGER, 16 мм (Светло-серый U708 ST9)"],["Основание стола","лофт-опора, чёрная"],["Примечание","без учёта ручек"]] },
+      { id:"kidsnight", group:"Детская", name:"Прикроватная тумба", unit:"шт", price:21000, qty:1,
+        specs:[["Корпус","ЛДСП Увадрев, 16 мм (Россия)"],["Фасад и крышка","МДФ в плёнке (WDM Мэджик Лайт MPT 78521)"],["Направляющие скрытого монтажа","Boyard"],["Ручка","торцевая"]] },
+      { id:"tv", group:"Гостиная", name:"ТВ-зона", unit:"комплект", price:70000, qty:1, img:IMG.sv_tv,
+        specs:[["Корпус","ЛДСП Увадрев, 16 мм (Россия)"],["Фасады, видимые бока, стеллаж","ЛДСП EGGER, 16 мм (Дуб Каселла коричневый H1386 ST40)"],
+          ["Крышка тумбы","ЛДСП EGGER, 32 мм (Дуб Каселла коричневый H1386 ST40)"],["Направляющие скрытого монтажа","Boyard"],["Ручка","Gola-профиль, чёрный"]] },
+      { id:"night", group:"Спальня", name:"Прикроватные тумбы, 2 шт", unit:"комплект", price:32000, qty:1, img:IMG.sv_night,
+        specs:[["Корпус","ЛДСП Увадрев, 16 мм (Россия)"],["Фасад и видимый бок","ЛДСП EGGER, 16 мм (Дуб Каселла коричневый H1386 ST40)"],["Направляющие скрытого монтажа","Boyard"],["Ручки","торцевые"]] }
+    ]}
+  };
+  var DEMO_KEY = /(^|[#&])demo=varianty(&|$)/.test(location.hash) ? "varianty" : "kvartira";
+  var DEMO_ITEMS = DEMOS[DEMO_KEY].items;
+
+  var DEMO_TERMS_NOTE = "Пример проекта — цены и состав взяты из реального проекта студии; имя клиента скрыто.";
+
+  /* ===== чтение KP_CONFIG (контракт lib/kp-config.ts / custom-render.ts) ===== */
+  var CFG = (window.KP_CONFIG && typeof window.KP_CONFIG === "object") ? window.KP_CONFIG : null;
+  var IS_DEMO = !CFG || CFG.demo === true || !(Array.isArray(CFG.items) && CFG.items.length) && !(Array.isArray(CFG.variants) && CFG.variants.length);
+
+  function esc(s){
+    return String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+  function fmt(n){
+    n = Math.round(Number(n) || 0);
+    var neg = n < 0; n = Math.abs(n);
+    var s = String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    return (neg ? "−" : "") + s + " ₽";
+  }
+  function pct(n){ return String(n).replace(".", ",") + " %"; }
+
+  var activeItems = (CFG && Array.isArray(CFG.items) && CFG.items.length) ? CFG.items
+    : (CFG && Array.isArray(CFG.variants) && CFG.variants.length) ? CFG.variants[0].items
+    : DEMO_ITEMS;
+
+  /* рабочая копия: у изделий с alts — выбранный индекс, у апгрейдов — состояние тумблера */
+  var items = activeItems.map(function(raw, i){
+    var it = Object.assign({}, raw);
+    it._i = i;
+    it._alt = 0;
+    it._on = false;
+    return it;
+  });
+
+  /* byId индексируется ТЕМ ЖЕ ключом, что уходит в data-item в разметке (it.id||it._i) —
+     иначе для сегодняшнего плоского формата OpMax (без item.id) переключатель optional-строки
+     в renderSimpleList находит data-item="<индекс>", но не находит его в byId, и тумблер
+     молча ничего не делает (пойман именно на этом сценарии — см. verify.js, тест №4) */
+  var byId = {}; items.forEach(function(it){ byId[it.id || it._i] = it; });
+  var upgradesByParent = {};
+  var topItems = [];
+  items.forEach(function(it){
+    if (it.parent && byId[it.parent]) {
+      (upgradesByParent[it.parent] = upgradesByParent[it.parent] || []).push(it);
+    } else {
+      topItems.push(it);
+    }
+  });
+
+  var hasGroups = topItems.some(function(it){ return !!it.group; });
+  var isRich = topItems.some(function(it){ return it.img || (it.specs && it.specs.length) || (it.alts && it.alts.length); });
+
+  function currentPrice(it){
+    if (it.alts && it.alts.length) return it.alts[it._alt].price;
+    return it.price;
+  }
+  function currentName(it){
+    if (it.alts && it.alts.length && it.alts[it._alt].title) return it.name;
+    return it.name;
+  }
+  function currentSpecs(it){
+    /* alts[i].specs, если задан, — ПОЛНАЯ таблица характеристик альтернативы, не патч по
+       совпадению текста подписи (см. контракт-комментарий выше) — так исключён баг задвоения
+       строки при разночтении подписи («Фасад» / «Фасады»). Нет alts[i].specs — берём specs
+       базовой строки как есть, без слияния. */
+    if (it.alts && it.alts.length && it.alts[it._alt] && it.alts[it._alt].specs) {
+      return it.alts[it._alt].specs;
+    }
+    return it.specs || [];
+  }
+  function lineTotal(it){ return currentPrice(it) * (it.qty || 1); }
+
+  function roomTotal(group){
+    var sum = 0;
+    topItems.forEach(function(it){
+      if ((it.group || "Смета") !== group) return;
+      if (it.optional && !it._on) return;
+      sum += lineTotal(it);
+      (upgradesByParent[it.id] || []).forEach(function(u){ if (u._on) sum += lineTotal(u); });
+    });
+    return sum;
+  }
+  function grandTotal(){
+    var groups = roomOrder();
+    return groups.reduce(function(s,g){ return s + roomTotal(g); }, 0);
+  }
+  function roomOrder(){
+    var seen = [], out = [];
+    topItems.forEach(function(it){
+      var g = it.group || "Смета";
+      if (seen.indexOf(g) < 0){ seen.push(g); out.push(g); }
+    });
+    return out;
+  }
+
+  /* ===== рендер: карточки-комнаты (богатый формат) ===== */
+  function placeholderSvg(){
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 19V7a2 2 0 0 1 2-2h5l2 2h5a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/></svg>';
+  }
+
+  function itemCard(it){
+    var price = currentPrice(it);
+    var specs = currentSpecs(it);
+    var photo = it.img
+      ? '<div class="ph"><img src="'+esc(it.img)+'" alt="'+esc(it.name)+'" loading="lazy"></div>'
+      : '<div class="ph ph-empty">'+placeholderSvg()+'</div>';
+    var specsHtml = specs.length
+      ? '<div class="specs">' + specs.map(function(p){
+          return '<div class="sp"><span>'+esc(p[0])+'</span><span>'+esc(p[1])+'</span></div>';
+        }).join("") + '</div>'
+      : "";
+    var altsHtml = "";
+    if (it.alts && it.alts.length > 1) {
+      altsHtml = '<div class="alts">' + it.alts.map(function(a, idx){
+        return '<button type="button" class="altbtn'+(idx===it._alt?' on':'')+'" data-alt-btn data-item="'+esc(it.id||it._i)+'" data-idx="'+idx+'">'
+          + '<b>'+esc(a.title)+'</b><small>'+fmt(a.price)+'</small></button>';
+      }).join("") + '</div>';
+    }
+    var upgrades = upgradesByParent[it.id] || [];
+    var upgHtml = upgrades.map(function(u){
+      return '<div class="upg'+(u._on?' on':'')+'" data-upg-toggle data-item="'+esc(u.id)+'" role="switch" aria-checked="'+(u._on?'true':'false')+'" tabindex="0">'
+        + '<div class="tx"><b>'+esc(u.name)+'</b>'
+        + (u.specs && u.specs.length ? '<small>'+u.specs.map(function(p){return esc(p[0])+' → '+esc(p[1]);}).join(' · ')+'</small>' : '')
+        + '</div><span class="pr num">+'+fmt(u.price)+'</span><span class="sw"></span></div>';
+    }).join("");
+
+    var showDemoTag = false; /* демо теперь целиком из реальных КП студии — предупреждать не о чем */
+    var demoHtml = showDemoTag
+      ? '<span class="demotag">◆ Пример формата</span><p class="demonote">Варианты/апгрейд — цифры другого проекта студии, показывают механику; в вашей смете будут ваши цены.</p>'
+      : "";
+
+    /* после первой отрисовки карточки не проявляются заново: переключение варианта или
+       апгрейда перерисовывает смету, и без этого все карточки мигали на каждый клик */
+    return '<div class="item rv'+(RENDERED?' in':'')+'" data-item-card="'+esc(it.id||it._i)+'">'
+      + photo
+      + '<div class="bd">'
+      + demoHtml
+      + '<div class="ttl"><h4>'+esc(currentName(it))+'</h4><div class="px num">'+fmt(price)+(it.qty>1?'<small>× '+it.qty+' '+esc(it.unit||'')+'</small>':'<small>'+esc(it.unit||'')+'</small>')+'</div></div>'
+      + specsHtml + altsHtml + upgHtml
+      + '</div></div>';
+  }
+
+  function renderRich(){
+    var groups = roomOrder();
+    var html = groups.map(function(g, gi){
+      var its = topItems.filter(function(it){ return (it.group||"Смета") === g; });
+      return '<div class="room" id="room-'+gi+'" data-room="'+esc(g)+'">'
+        + '<div class="roomhead"><h3><span class="ridx">'+String(gi+1).padStart(2,'0')+'</span>'+esc(g)+'</h3>'
+        + '<span class="rtot num">'+fmt(roomTotal(g))+'</span></div>'
+        + its.map(itemCard).join("")
+        + '</div>';
+    }).join("");
+    document.getElementById("rooms").innerHTML = html;
+  }
+
+  function renderSimpleList(){
+    /* без комнат и карточек — заголовок и подсказка про варианты были бы неправдой */
+    var h = document.querySelector("#quote .h2"); if (h) h.textContent = "Смета";
+    var l = document.querySelector("#quote .schead .lead"); if (l) l.textContent = "Состав и цена по позициям. Итог — справа.";
+    var html = '<div class="simple-list">' + topItems.map(function(it){
+      var total = lineTotal(it);
+      return '<div class="srow">'
+        + (it.optional ? '<span class="upg" data-upg-toggle data-item="'+esc(it.id||it._i)+'" style="padding:4px 8px;margin:0"><span class="sw" style="transform:scale(.8)"></span></span>' : '')
+        + '<span class="sn">'+esc(it.name)+'</span>'
+        + '<span class="su">'+esc(it.unit||'')+'</span>'
+        + '<span class="sq">× '+ (it.qty||1) +'</span>'
+        + '<span class="sv num">'+fmt(total)+'</span>'
+        + '</div>';
+    }).join("") + '</div>';
+    document.getElementById("rooms").innerHTML = html;
+  }
+
+  function renderRoomNav(){
+    var wrap = document.getElementById("roomNavWrap");
+    var nav = document.getElementById("roomNav");
+    if (!hasGroups || !isRich) { wrap.style.display = "none"; return; }
+    var groups = roomOrder();
+    nav.innerHTML = groups.map(function(g, gi){
+      return '<button type="button" class="rchip" data-room-link="room-'+gi+'">'
+        + '<b>'+esc(g)+'</b><small class="num">'+fmt(roomTotal(g))+'</small></button>';
+    }).join("");
+  }
+
+  function renderSum(){
+    var total = grandTotal();
+    var discount = Number((CFG && CFG.discount) || 0);
+    var afterDiscount = discount > 0 ? total * (1 - discount/100) : total;
+
+    var groups = roomOrder();
+    var rowsHtml = "";
+    if (hasGroups && isRich && groups.length > 1) {
+      rowsHtml = groups.map(function(g){
+        return '<div class="sumrow"><span>'+esc(g)+'</span><span class="num">'+fmt(roomTotal(g))+'</span></div>';
+      }).join("") + '<div class="sumdiv"></div>';
+    }
+    var discRow = discount > 0
+      ? '<div class="sumrow discount"><span>Скидка за комплексный проект</span><span>&minus;'+pct(discount)+'</span></div><div class="sumdiv"></div>'
+      : "";
+    document.getElementById("sumBody").innerHTML = rowsHtml + discRow
+      + '<div class="sumtotal"><span class="l">К оплате</span><span class="v num">'+fmt(afterDiscount)+'</span></div>'
+      + '<div class="sumnote">Без учёта сборки (10% от стоимости изделий + доп. работы) и подключения техники. Доставка и занос на лифте — 0&nbsp;₽.</div>';
+
+    var t = fmt(afterDiscount);
+    document.getElementById("coverTotal").textContent = t;
+    document.getElementById("mobSumTotal").textContent = t;
+  }
+
+  var RENDERED = false;
+  function renderAll(){
+    if (hasGroups && isRich) renderRich(); else renderSimpleList();
+    renderRoomNav();
+    renderSum();
+    observeReveal();
+    RENDERED = true;
+  }
+
+  /* ===== условия ===== */
+  function renderTerms(){
+    var until = CFG && CFG.until;
+    var cards = [
+      { i:"⌂", t:"Материалы и фурнитура", p:"Корпуса — ЛДСП EGGER / Увадрев 16 мм, фасады — МДФ в плёнке ПВХ, ЛДСП или эмаль. Петли и направляющие — BLUM (Австрия) и Boyard." },
+      { i:"✓", t:"Гарантия 24 месяца", p:"По договору — на детали и материалы мебели, плюс сервисное обслуживание. Фурнитура — по гарантии её производителя." },
+      { i:"→", t:"Доставка и занос", p:"Доставка всех изделий — 0 ₽. Занос мебели на лифте — 0 ₽." },
+      { i:"⚙", t:"Сборка", p:"10% от общей стоимости изделий + дополнительные работы по кухне: установка техники и подсветки." },
+      { i:"%", t:"Скидка за комплексный проект", p: (CFG && CFG.discount > 0) ? ("Учтена в итоге ниже — "+pct(CFG.discount)+".") : "На комплексные и повторные заказы — скидка; размер фиксируется в договоре." },
+      { i:"₸", t:"Оплата", p:"При оплате на расчётный счёт к стоимости +6%. Изменения в проекте после подписания договора не принимаются." }
+    ];
+    document.getElementById("termsGrid").innerHTML = cards.map(function(c){
+      return '<div class="tcard rv"><div class="ti">'+c.i+'</div><b>'+esc(c.t)+'</b><p>'+esc(c.p)+'</p></div>';
+    }).join("");
+
+    var slot = document.getElementById("deadlineSlot");
+    if (until) {
+      var d = new Date(until);
+      if (!isNaN(d.getTime())) {
+        slot.innerHTML = '<div class="deadline">Предложение действует до <b>'+d.toLocaleDateString("ru-RU",{day:"numeric",month:"long",year:"numeric"})+'</b></div>';
+      }
+    }
+  }
+
+  /* ===== «как строится проект»: пятишаговый таймлайн ===== */
+  function renderFlow(){
+    var steps = [
+      {t:"Замер", p:"Приезжаем в удобное время, делаем замер, привозим образцы материалов, рисуем дизайн-проект."},
+      {t:"Договор", p:"Фиксируем состав, материалы и цену. В этом документе — предварительная стоимость."},
+      {t:"Производство", p:"Распил, кромление и фрезеровка на ЧПУ немецкого производства, ровные зазоры менее 4 мм."},
+      {t:"Доставка и занос", p:"Доставка всех изделий и занос на лифте — 0 ₽."},
+      {t:"Сборка", p:"Штатные сборщики с опытом от 10 лет. Сборка — 10% от стоимости изделий."}
+    ];
+    var slot = document.getElementById("flowSteps");
+    if (!slot) return;
+    slot.innerHTML = steps.map(function(s, i){
+      return '<div class="flow-step rv"><span class="fdia"><b>'+(i+1)+'</b></span>'
+        + '<b class="ft">'+esc(s.t)+'</b><p>'+esc(s.p)+'</p></div>';
+    }).join("");
+  }
+
+  /* ===== работы ===== */
+  function renderCases(){
+    document.getElementById("casesGrid").innerHTML = CASES.map(function(c, i){
+      return '<div class="case rv" data-case-open data-idx="'+i+'"><img src="'+c.img+'" alt="'+esc(c.cap)+'" loading="lazy"><div class="cap">'+esc(c.cap)+'</div></div>';
+    }).join("");
+  }
+  function openLightbox(idx){
+    var c = CASES[idx]; if (!c) return;
+    document.getElementById("lbImg").src = c.img;
+    document.getElementById("lbImg").alt = c.cap;
+    document.getElementById("lbCap").textContent = c.cap;
+    document.getElementById("lightbox").classList.add("open");
+  }
+  function closeLightbox(){ document.getElementById("lightbox").classList.remove("open"); }
+
+  /* ===== отзывы: только если платформа передала медиа с пометкой отзыва/видео ===== */
+  function renderReviews(){
+    /* Никогда не рисуем звёзды/рейтинг, которого нет в данных — раньше здесь стояли фиксированные
+       "★★★★★" на КАЖДОЙ записи, включая kind:"video" (у видео рейтинга не бывает вовсе) — то
+       есть макет сам выдумывал оценку. Теперь: звёзды только если платформа передала m.rating
+       числом; видео получает свою карточку с пометкой «Видео», без звёзд. */
+    var media = (CFG && Array.isArray(CFG.media)) ? CFG.media : [];
+    var revs = media.filter(function(m){ return /review|отзыв|video|видео/i.test(m.kind || m.name || ""); });
+    var slot = document.getElementById("reviewsSlot");
+    if (revs.length) {
+      slot.innerHTML = '<div class="revgrid">' + revs.map(function(m){
+        var isVideo = /video|видео/i.test(m.kind || "");
+        var rating = Number(m.rating);
+        var starsHtml = (rating > 0 && rating <= 5)
+          ? '<div class="stars">'+"★★★★★".slice(0,Math.round(rating))+'</div>'
+          : (isVideo ? '<div class="revkind">▶ Видео</div>' : '<div class="revkind">Отзыв клиента</div>');
+        return '<div class="revcard">'+starsHtml+'<p>'+esc(m.name||(isVideo?"Видео со съёмки проекта":"Отзыв клиента"))+'</p></div>';
+      }).join("") + '</div>';
+      document.getElementById("reviews").hidden = false;
+    }
+    /* нет отзывов — секции нет вовсе: заглушка «здесь появятся отзывы» в КП клиенту выглядела пустотой */
+  }
+
+  function renderReels(){
+    document.getElementById("reelsGrid").innerHTML = REELS.map(function(r){
+      return '<a class="reel rv" href="https://t.me/kuhni_sergey" target="_blank" rel="noopener"><img src="'+r.img+'" alt="'+esc(r.t)+'" loading="lazy"><span class="rp">▶</span><span class="rt">'+esc(r.t)+'</span></a>';
+    }).join("");
+  }
+
+  function renderDemoSwitch(){
+    var slot = document.getElementById("demoSwitch");
+    if (!IS_DEMO || !slot) return;
+    slot.innerHTML = '<div class="demosw">' + Object.keys(DEMOS).map(function(k){
+      return '<button type="button" data-demo="'+k+'" class="'+(k===DEMO_KEY?'on':'')+'">'+esc(DEMOS[k].title)+'</button>';
+    }).join("") + '</div><p class="demosw-note">Примеры — реальные сметы студии, имена клиентов скрыты.</p>';
+  }
+
+  /* ===== контакты ===== */
+  function renderContacts(){
+    var c = (CFG && CFG.contacts) || {};
+    var phone = c.phone || "+79348883229";
+    /* OpMax отдаёт телефон как +7XXXXXXXXXX — показываем по-человечески */
+    var digits = String(phone).replace(/\D/g,"");
+    var phoneShown = (digits.length === 11 && digits[0] === "7")
+      ? "+7 " + digits.slice(1,4) + " " + digits.slice(4,7) + "-" + digits.slice(7,9) + "-" + digits.slice(9)
+      : (c.phone || "+7 934 888-32-29");
+    var telHref = "tel:" + String(phone).replace(/[^\d+]/g,"");
+    ["topPhone","ctPhone"].forEach(function(id){ document.getElementById(id).href = telHref; });
+    document.getElementById("topPhoneNum").textContent = phoneShown;
+    document.getElementById("ctPhone").textContent = phoneShown;
+    document.getElementById("ctName").textContent = c.name ? (c.name + (c.role ? " · "+c.role : "")) : "Студия мебели Сергея Миронова";
+    if (c.telegram) {
+      var tg = String(c.telegram).replace(/^@/,"");
+      var tgHref = /^\+?\d[\d\s()-]{6,}$/.test(tg) ? ("https://t.me/+"+tg.replace(/[^\d]/g,"")) : ("https://t.me/"+tg);
+      document.getElementById("ctTg").href = tgHref;
+      document.getElementById("ctTg").textContent = "@"+tg.replace(/^\+/,"");
+      document.getElementById("ctTgRow").style.display = "flex";
+    }
+    if (c.max) {
+      document.getElementById("ctMax").textContent = c.max;
+      document.getElementById("ctMaxRow").style.display = "flex";
+    }
+  }
+
+  function renderCover(){
+    /* город — только если платформа его передала; «город уточняется» в заголовке выглядел черновиком */
+    if (CFG && CFG.city) {
+      document.getElementById("coverCity").textContent = CFG.city;
+      document.getElementById("coverCityWrap").hidden = false;
+    }
+    document.getElementById("coverClient").textContent = (CFG && CFG.client) || "вашей квартиры";
+  }
+
+  /* ===== скролл-спай + плавный скролл к комнате ===== */
+  var io;
+  function observeReveal(){
+    var els = document.querySelectorAll(".rv:not(.in)");
+    if (!("IntersectionObserver" in window)) { els.forEach(function(el){ el.classList.add("in"); }); return; }
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add("in"); obs.unobserve(e.target); } });
+    }, {threshold:.12});
+    els.forEach(function(el){ obs.observe(el); });
+  }
+  var anyRoomActivated = false; /* см. ниже: подавляет автоскролл ленты комнат на самой первой
+    активации чипа — иначе она случается прямо на открытии страницы */
+  function observeRooms(){
+    var rooms = document.querySelectorAll(".room");
+    if (!rooms.length || !("IntersectionObserver" in window)) return;
+    if (io) io.disconnect();
+    io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        var chip = document.querySelector('.rchip[data-room-link="'+e.target.id+'"]');
+        if (!chip) return;
+        if (e.isIntersecting) {
+          document.querySelectorAll(".rchip.on").forEach(function(c){ c.classList.remove("on"); });
+          chip.classList.add("on");
+          /* баг, пойманный на скрине m2-smeta-top-390: самая первая активация (страница только
+             открылась, лента комнат ещё в позиции 0) центрировала первый чип и обрезала его
+             текст с обеих сторон — выглядело как визуальный брак, а не как список для скролла.
+             anyRoomActivated взводится один раз за всю жизнь страницы — только следующие,
+             вызванные реальным скроллом активации, центрируют чип. */
+          if (anyRoomActivated) chip.scrollIntoView({block:"nearest", inline:"center", behavior:"smooth"});
+          anyRoomActivated = true;
+        }
+      });
+    }, {rootMargin:"-40% 0px -50% 0px"});
+    rooms.forEach(function(r){ io.observe(r); });
+  }
+
+  /* ===== делегирование событий: без единого инлайн-обработчика в разметке ===== */
+  document.addEventListener("click", function(e){
+    var t = e.target;
+
+    var altBtn = t.closest && t.closest("[data-alt-btn]");
+    if (altBtn) {
+      var it = byId[altBtn.getAttribute("data-item")] || topItems[Number(altBtn.getAttribute("data-item"))];
+      if (it) { it._alt = Number(altBtn.getAttribute("data-idx")) || 0; renderAll(); }
+      return;
+    }
+    var upg = t.closest && t.closest("[data-upg-toggle]");
+    if (upg) {
+      var u = byId[upg.getAttribute("data-item")];
+      if (u) { u._on = !u._on; renderAll(); }
+      return;
+    }
+    var roomLink = t.closest && t.closest("[data-room-link]");
+    if (roomLink) {
+      var el = document.getElementById(roomLink.getAttribute("data-room-link"));
+      if (el) el.scrollIntoView({behavior:"smooth", block:"start"});
+      return;
+    }
+    var scrollBtn = t.closest && t.closest("[data-scroll]");
+    if (scrollBtn) {
+      e.preventDefault();
+      var target = document.getElementById(scrollBtn.getAttribute("data-scroll"));
+      if (target) target.scrollIntoView({behavior:"smooth", block:"start"});
+      return;
+    }
+    var caseEl = t.closest && t.closest("[data-case-open]");
+    if (caseEl) { openLightbox(Number(caseEl.getAttribute("data-idx"))); return; }
+    if (t.closest && t.closest("[data-action='lb-close']")) { closeLightbox(); return; }
+    if (t.id === "lightbox") { closeLightbox(); return; }
+    var demoBtn = t.closest && t.closest("[data-demo]");
+    if (demoBtn) {
+      location.hash = "demo=" + demoBtn.getAttribute("data-demo");
+      location.reload();
+      return;
+    }
+    var printBtn = t.closest && t.closest("[data-action='print']");
+    if (printBtn) { window.print(); return; }
+    var mobSum = t.closest && t.closest("#mobSum");
+    if (mobSum) {
+      mobSum.classList.toggle("open");
+      document.getElementById("sumAside").style.display = mobSum.classList.contains("open") ? "block" : "";
+      if (mobSum.classList.contains("open")) document.getElementById("sumAside").scrollIntoView({behavior:"smooth", block:"nearest"});
+      return;
+    }
+  });
+  document.addEventListener("keydown", function(e){
+    if (e.key !== "Enter" && e.key !== " ") return;
+    var upg = e.target.closest && e.target.closest("[data-upg-toggle]");
+    if (upg) { e.preventDefault(); upg.click(); }
+    if (e.key === "Escape") closeLightbox();
+  });
+
+  /* ===== старт ===== */
+  renderCover();
+  renderAll();
+  renderTerms();
+  renderFlow();
+  renderCases();
+  renderReviews();
+  renderReels();
+  renderDemoSwitch();
+  renderContacts();
+  observeReveal(); /* переспросить IntersectionObserver: карточки условий/работ добавились в DOM после первого вызова внутри renderAll() */
+  document.body.classList.add("loaded");
+  /* observeRooms вызывается ОДИН раз — .room уже в DOM (renderAll выше синхронный), повторный
+     вызов на "load" пересоздавал бы observer и мог заново спровоцировать автоскролл ленты
+     комнат при открытии страницы (см. anyRoomActivated выше) */
+  observeRooms();
+})();
+</script>
+</body>
+</html>
