@@ -284,6 +284,11 @@ img{max-width:100%;display:block}
 .revbox .ri{width:44px;height:44px;margin:0 auto 14px;border-radius:50%;background:var(--card2);border:1px solid var(--line2);
   display:grid;place-items:center;color:var(--mut)}
 .revbox p{color:var(--mut);font-size:13.5px;max-width:46ch;margin:0 auto}
+.revcard .rq{color:var(--dim);font-size:13.5px;line-height:1.6;margin:0}
+.revcard .rn{margin-top:12px;font-size:12px;color:var(--mut)}
+.revcard .rn b{color:var(--ink);font-weight:650}
+.revmore{margin-top:16px}
+@media(min-width:980px){.revgrid{grid-template-columns:repeat(3,1fr)}}
 .revgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
 .revcard{border:1px solid var(--line);background:var(--card);border-radius:var(--r-md);padding:16px}
 .revcard .stars{color:var(--acc);font-size:13px;letter-spacing:2px}
@@ -481,6 +486,7 @@ footer .fbrand{display:flex;align-items:center;gap:9px}
     <div class="schead">
       <span class="kicker"><span class="dot"></span> Отзывы</span>
       <h2 class="h2" style="margin-top:10px">Что говорят клиенты</h2>
+      <p class="lead" style="margin-top:10px">Слова клиентов из переписки после сборки — без правок, только имена.</p>
     </div>
     <div id="reviewsSlot"></div>
   </div>
@@ -602,6 +608,11 @@ footer .fbrand{display:flex;align-items:center;gap:9px}
     sv_closet:"__IMG_sv_closet__", sv_kids:"__IMG_sv_kids__", sv_tv:"__IMG_sv_tv__", sv_night:"__IMG_sv_night__",
     reel1:"__IMG_reel1__", reel2:"__IMG_reel2__", reel3:"__IMG_reel3__", reel4:"__IMG_reel4__", reel5:"__IMG_reel5__", reel6:"__IMG_reel6__"
   };
+
+  /* отзывы клиентов студии: дословно из переписки (папка «ОТЗЫВЫ» Сергея, 25.09.2026),
+     только имя — фамилии, телефоны и номера договоров не переносятся (152-ФЗ) */
+  var REVIEWS = [{"n": "Екатерина", "p": "кухня", "q": "…спасибо большое Сергею и его команде за кухню. Надо было вписать мебель в имеющийся плиточный фартук, розетки, вытяжку и всё получилось. Сборщики - молодцы, все возникающие мелкие проблемы решались оперативно: нижний ярус встал четко под кафельный фартук, ребята отказались от плинтуса, промазали стык герметиком, стало надежно и красиво. Огромная благодарность всем!"}, {"n": "Ольга", "p": "кухня", "q": "…меня все устраивает на 100%. Я уже третий раз заказываю мебель и это показатель что я каждый раз обращаюсь к вам. Стоимость, сроки, качество все на 5+"}, {"n": "Марина", "p": "шкафы", "q": "Сборка мебели закончена. Качество мебели мне очень понравилось. И хочу выразить огромную благодарность сборщикам мебели Иркену и Руслану: отличная работа!!! Ребята высококвалифицированные, очень приятные в общении. Сделали все на пять с плюсом, убрали за собой весь мусор, в общем спасибо огромное!!!! Я очень довольна заказом!"}, {"n": "Светлана", "p": "кухня, прихожая", "q": "Я очень довольна, спасибо вам большое:))\nОсобенно кухня, она просто из моей детской мечты)\nВсе очень аккуратно и красиво, я уже порекомендовала вас двум друзьям, которые занимаются ремонтом\nОтдельное спасибо за то, что без вопросов поправили все недостатки, это очень ценно"}, {"n": "Виктория", "p": "мебель для санузла", "q": "Мой третий проект у вас, и я как всегда в восторге, от того что мои идеи воплощаются в реальность\nОтдельное спасибо , за профессионализм сборщиков.\nНе перестану петь оды восхищения вам и вашей команде!"}, {"n": "Наталья", "p": "прихожая", "q": "Сборка прошла замечательно\nРебята уложились в 1 день, даже не до позднего вечера\nНаша прихожая преобразилась! Я пришла с работы, как будто не в свою квартиру попала\nСпасибо вам огромное, все отлично!"}, {"n": "Татьяна", "p": "кухня", "q": "…Замечаний по мебели нет. Все четко и в срок. В планах заказать у вас шкаф"}, {"n": "Инна", "p": "шкаф", "q": "Благодарю за качественную работу, у вас прекрасная команда! Шкаф-элегантный красавец … Обязательно обращусь к вам при первой же возможности!) И обязательно буду рекомендовать"}, {"n": "Татьяна", "p": "шкафы", "q": "Да, все отлично! Сборщики молодцы, успели все за день собрать, все четко и красиво."}, {"n": "Мария", "p": "створки шкафа-купе", "q": "Да, все прошло успешно, быстро и замечательно! Очень хорошие установщики, зря я переживала) спасибо вам огромное! Получилось очень красиво)"}, {"n": "Лидия", "p": "прихожая", "q": "Спасибо за мебель.\nВсе очень понравилось. … Нам ещё в одну комнату нужна будет мебель.\nНапишу вам в ближайшее время по новому заказу."}, {"n": "Елена", "p": "кухня", "q": "Нам очень нравится кухня! Огонь. Большая, но невыделяющая. То что нужно"}, {"n": "Александра", "p": "кухня", "q": "Сказать, что мне нравится это вообще ничего не сказать. Я просто пищу от восторга! Спасибо большое!"}, {"n": "Евгения", "p": "шкаф", "q": "Всё очень понравилось. От дизайнера до сборщиков. Большое спасибо."}];
+  var REV_FIRST = 6;
 
   /* ролики канала студии (обложки с Яндекс Диска Сергея, 25.09.2026) */
   var REELS = [
@@ -997,6 +1008,14 @@ footer .fbrand{display:flex;align-items:center;gap:9px}
         return '<div class="revcard">'+starsHtml+'<p>'+esc(m.name||(isVideo?"Видео со съёмки проекта":"Отзыв клиента"))+'</p></div>';
       }).join("") + '</div>';
       document.getElementById("reviews").hidden = false;
+    } else if (REVIEWS.length) {
+      var all = slot.getAttribute("data-all") === "1";
+      var list = all ? REVIEWS : REVIEWS.slice(0, REV_FIRST);
+      slot.innerHTML = '<div class="revgrid">' + list.map(function(r){
+        return '<div class="revcard'+(all?'':' rv')+'"><p class="rq">«'+esc(r.q)+'»</p><div class="rn"><b>'+esc(r.n)+'</b>'+(r.p?' · '+esc(r.p):'')+'</div></div>';
+      }).join("") + '</div>'
+        + (!all && REVIEWS.length > REV_FIRST ? '<div class="revmore"><button type="button" class="btn g sm" data-act="rev-all">Все отзывы · '+REVIEWS.length+'</button></div>' : '');
+      document.getElementById("reviews").hidden = false;
     }
     /* нет отзывов — секции нет вовсе: заглушка «здесь появятся отзывы» в КП клиенту выглядела пустотой */
   }
@@ -1063,6 +1082,15 @@ footer .fbrand{display:flex;align-items:center;gap:9px}
   }
   var anyRoomActivated = false; /* см. ниже: подавляет автоскролл ленты комнат на самой первой
     активации чипа — иначе она случается прямо на открытии страницы */
+  /* Лента комнат прокручивается сама, только по горизонтали. Раньше здесь был
+     chip.scrollIntoView — он двигал и страницу: к «родному» месту липкой ленты, та
+     активировала соседнюю комнату, и так по кругу — прокрутка вниз застревала на
+     смете (найдено 27.09 на КП с несколькими комнатами). */
+  function centerChip(chip){
+    var nav = chip.parentElement, nr = nav.getBoundingClientRect(), cr = chip.getBoundingClientRect();
+    var dx = (cr.left + cr.width/2) - (nr.left + nr.width/2);
+    if (Math.abs(dx) > 1) nav.scrollBy({left: dx, behavior: "smooth"});
+  }
   function observeRooms(){
     var rooms = document.querySelectorAll(".room");
     if (!rooms.length || !("IntersectionObserver" in window)) return;
@@ -1079,7 +1107,7 @@ footer .fbrand{display:flex;align-items:center;gap:9px}
              текст с обеих сторон — выглядело как визуальный брак, а не как список для скролла.
              anyRoomActivated взводится один раз за всю жизнь страницы — только следующие,
              вызванные реальным скроллом активации, центрируют чип. */
-          if (anyRoomActivated) chip.scrollIntoView({block:"nearest", inline:"center", behavior:"smooth"});
+          if (anyRoomActivated) centerChip(chip);
           anyRoomActivated = true;
         }
       });
@@ -1120,6 +1148,11 @@ footer .fbrand{display:flex;align-items:center;gap:9px}
     if (caseEl) { openLightbox(Number(caseEl.getAttribute("data-idx"))); return; }
     if (t.closest && t.closest("[data-action='lb-close']")) { closeLightbox(); return; }
     if (t.id === "lightbox") { closeLightbox(); return; }
+    if (t.closest && t.closest("[data-act='rev-all']")) {
+      document.getElementById("reviewsSlot").setAttribute("data-all", "1");
+      renderReviews();
+      return;
+    }
     var demoBtn = t.closest && t.closest("[data-demo]");
     if (demoBtn) {
       location.hash = "demo=" + demoBtn.getAttribute("data-demo");
